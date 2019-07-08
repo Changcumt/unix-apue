@@ -66,3 +66,44 @@ offet是一个类型为off_t的整数。值的意义与whence有关:
 * whence 是 SEEK_CUR的时候，将文件的偏移量设置为当前值加offset个字节，offset可以为正或者负
 * whence 是 SEEK_END的时候，将文件的偏移量设置为文件长度+offset
 
+
+#### demo 使用方法open write lseek
+
+注： 使用Xcode无法看到生成的文件 需要使用cc 或者 gcc命令来编译文成out文件 然后运行
+```c
+#include "apue.h"
+#include <limits.h>
+#include <fcntl.h>
+
+char buf1[] = "abcdefgij";
+char buf2[] = "ABCDEFGIJ";
+
+int main(void) {
+    // insert code here...
+    int fd;
+    
+    if((fd = open("file.hole", O_RDWR | O_CREAT ,FILE_MODE))<0){
+        printf("creat error\n");
+    }
+    
+    if(write(fd, buf1, 10)!= 10){
+          printf("buf1 write error\n");
+    }
+    
+    // offset now is 10
+    
+    if(lseek(fd, 16384,SEEK_SET) == -1){
+          printf("lseek error\n");
+    }
+    
+    // offset now is 16384
+    
+    if(write(fd, buf2, 10)!=10){
+          printf("write buf2 error\n");
+    }
+    // offset niw is 16394
+
+    return 0;
+}
+
+```
