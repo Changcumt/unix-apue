@@ -107,3 +107,18 @@ int main(void) {
 }
 
 ```
+
+#### read
+
+```c
+
+ssize_t read(int fd, void *buf, size_t nbytes);
+
+```
+如果read成功，则返回已经读到的字节数。如已经达到文件尾端，则返回0. 如果出错 返回-1
+
+#### write
+```c
+ssize_t write(int fd,const void *buf,size_t nbytes)
+```
+若成功 返回已写的字节数，若出错 返回-1
