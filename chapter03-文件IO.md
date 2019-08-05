@@ -122,3 +122,27 @@ ssize_t read(int fd, void *buf, size_t nbytes);
 ssize_t write(int fd,const void *buf,size_t nbytes)
 ```
 若成功 返回已写的字节数，若出错 返回-1
+
+#### demo
+```c
+#include "apue.h"
+#include <limits.h>
+#include <fcntl.h>
+
+#define BUFFSIZE 4096
+
+int main(void) {
+    // insert code here...
+    int n;
+    char buf[BUFFSIZE];
+    while((n=read(STDIN_FILENO,buf,BUFFSIZE))>0)
+      if(write(STDOUT_FILENO,buf,n) !=n)
+          printf('write error');
+
+      if(n<0)
+          printf('read error');
+    
+    return 0;
+}
+
+```
